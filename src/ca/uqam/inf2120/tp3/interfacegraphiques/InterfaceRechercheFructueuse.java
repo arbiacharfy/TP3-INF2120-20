@@ -164,6 +164,8 @@ public class InterfaceRechercheFructueuse extends JFrame {
 				AfficherEmploye JDialogAfficherEmploye = new AfficherEmploye();
 				JDialogAfficherEmploye.runJDialogModifierEmploye();
 				
+				
+				
 			}
 		});
 		btnAfficher.setEnabled(false);

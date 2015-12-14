@@ -26,6 +26,7 @@ public class AfficherEmploye extends JDialog {
 	private JTextField textNom;
 	private JTextField textTelephone;
 	private JTextField textCourriel;
+	private JButton btnFermer;
 	
 	JComboBox<String> comboBoxNumEtage;
 	private JTextField textNumBureau;
@@ -112,13 +113,15 @@ public class AfficherEmploye extends JDialog {
 		flowLayout.setAlignment(FlowLayout.RIGHT);
 		panneauGlobal.add(panelBas, BorderLayout.SOUTH);
 		
-		JButton btnFermer = new JButton("Fermer");
+		btnFermer = new JButton("Fermer");
 		panelBas.add(btnFermer);
 		
 		
 		
 		
 	}
+	
+	
 	
 	/**
 	 * Launch the application.

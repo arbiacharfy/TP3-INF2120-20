@@ -14,6 +14,8 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 import java.awt.GridLayout;
 import javax.swing.JLabel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
 public class AjouterEmploye extends JDialog {
@@ -108,6 +110,12 @@ public class AjouterEmploye extends JDialog {
 		panneauGlobal.add(panelBas, BorderLayout.SOUTH);
 		
 		JButton btnAjouter = new JButton("Ajouter");
+		btnAjouter.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+			}
+		});
 		panelBas.add(btnAjouter);
 		
 		JButton btnAnnuler = new JButton("Annuler");
