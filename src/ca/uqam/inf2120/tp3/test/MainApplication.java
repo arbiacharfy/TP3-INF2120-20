@@ -17,6 +17,7 @@ public class MainApplication {
 //				View view = new View("-");
 //				Controller controller = new Controller(model, view);
 //				controller.contol();
+				
 			}
 		});
 	}
