@@ -16,7 +16,7 @@ import java.awt.GridLayout;
 import javax.swing.JLabel;
 
 @SuppressWarnings("serial")
-public class AjouterEmploye extends JDialog {
+public class ModifierEmploye extends JDialog {
 
 	JPanel panneauGlobal ;
 	String titre = "Media Pour Tous - Ajout d'un employe";
@@ -30,10 +30,10 @@ public class AjouterEmploye extends JDialog {
 	JComboBox<String> comboBoxNumEtage;
 	private JTextField textNumBureau;
 	
-	AjouterEmploye(){
+	ModifierEmploye(){
 				
 		// information sur la fenetre
-		setTitle(titre); // titre de la fenetre
+		setTitle("Media Pour Tous -Modification d'un employe"); // titre de la fenetre
 		setBounds(100,100,500,500);// dimension
 		// panneau Global : contient deux pannel
 		panneauGlobal = new JPanel();
@@ -107,8 +107,8 @@ public class AjouterEmploye extends JDialog {
 		flowLayout.setAlignment(FlowLayout.RIGHT);
 		panneauGlobal.add(panelBas, BorderLayout.SOUTH);
 		
-		JButton btnAjouter = new JButton("Ajouter");
-		panelBas.add(btnAjouter);
+		JButton btnModifier = new JButton("Modifier");
+		panelBas.add(btnModifier);
 		
 		JButton btnAnnuler = new JButton("Annuler");
 		panelBas.add(btnAnnuler);
@@ -121,11 +121,11 @@ public class AjouterEmploye extends JDialog {
 	/**
 	 * Launch the application.
 	 */
-	public void runJDialogAjoutEmploye() {
+	public  void runJDialogModifierEmploye() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					AjouterEmploye monDialog = new AjouterEmploye();
+					ModifierEmploye monDialog = new ModifierEmploye();
 					monDialog.setModal(true);
 					monDialog.setVisible(true);
 					monDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);

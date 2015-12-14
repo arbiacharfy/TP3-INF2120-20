@@ -16,7 +16,7 @@ import java.awt.GridLayout;
 import javax.swing.JLabel;
 
 @SuppressWarnings("serial")
-public class AjouterEmploye extends JDialog {
+public class AfficherEmploye extends JDialog {
 
 	JPanel panneauGlobal ;
 	String titre = "Media Pour Tous - Ajout d'un employe";
@@ -30,10 +30,10 @@ public class AjouterEmploye extends JDialog {
 	JComboBox<String> comboBoxNumEtage;
 	private JTextField textNumBureau;
 	
-	AjouterEmploye(){
+	AfficherEmploye(){
 				
 		// information sur la fenetre
-		setTitle(titre); // titre de la fenetre
+		setTitle("Media Pour Tous - Affichage d'un employe"); // titre de la fenetre
 		setBounds(100,100,500,500);// dimension
 		// panneau Global : contient deux pannel
 		panneauGlobal = new JPanel();
@@ -51,6 +51,7 @@ public class AjouterEmploye extends JDialog {
 		panelHaut.add(lblCodePermanent);
 		
 		textMatricule = new JTextField();
+		textMatricule.setEditable(false);
 		panelHaut.add(textMatricule);
 		textMatricule.setColumns(10);
 		
@@ -59,6 +60,7 @@ public class AjouterEmploye extends JDialog {
 		panelHaut.add(lblPrenom);
 		
 		textPrenom = new JTextField();
+		textPrenom.setEditable(false);
 		panelHaut.add(textPrenom);
 		textPrenom.setColumns(10);
 		
@@ -67,6 +69,7 @@ public class AjouterEmploye extends JDialog {
 		panelHaut.add(lblNom);
 		
 		textNom = new JTextField();
+		textNom.setEditable(false);
 		panelHaut.add(textNom);
 		textNom.setColumns(10);
 		//Telephone
@@ -74,6 +77,7 @@ public class AjouterEmploye extends JDialog {
 		panelHaut.add(lblTelephone);
 		
 		textTelephone = new JTextField();
+		textTelephone.setEditable(false);
 		panelHaut.add(textTelephone);
 		textTelephone.setColumns(10);
 		//Courriel
@@ -81,6 +85,7 @@ public class AjouterEmploye extends JDialog {
 		panelHaut.add(lblCourriel);
 		
 		textCourriel = new JTextField();
+		textCourriel.setEditable(false);
 		panelHaut.add(textCourriel);
 		textCourriel.setColumns(10);
 		//Numero Etage
@@ -88,7 +93,6 @@ public class AjouterEmploye extends JDialog {
 		panelHaut.add(lblNumEtage);
 		
 		comboBoxNumEtage =  new JComboBox<String>();
-		comboBoxNumEtage.setEditable(true);
 		comboBoxNumEtage.setModel(new DefaultComboBoxModel<String>(new String[] {"01 ", "02", " 03"}));
 		panelHaut.add(comboBoxNumEtage);
 				
@@ -99,6 +103,7 @@ public class AjouterEmploye extends JDialog {
 		panelHaut.add(lblNumBureau);
 		
 		textNumBureau = new JTextField();
+		textNumBureau.setEditable(false);
 		panelHaut.add(textNumBureau);
 		textNumBureau.setColumns(10);
 		// panneau bottom
@@ -107,11 +112,8 @@ public class AjouterEmploye extends JDialog {
 		flowLayout.setAlignment(FlowLayout.RIGHT);
 		panneauGlobal.add(panelBas, BorderLayout.SOUTH);
 		
-		JButton btnAjouter = new JButton("Ajouter");
-		panelBas.add(btnAjouter);
-		
-		JButton btnAnnuler = new JButton("Annuler");
-		panelBas.add(btnAnnuler);
+		JButton btnFermer = new JButton("Fermer");
+		panelBas.add(btnFermer);
 		
 		
 		
@@ -121,11 +123,11 @@ public class AjouterEmploye extends JDialog {
 	/**
 	 * Launch the application.
 	 */
-	public void runJDialogAjoutEmploye() {
+	public  void runJDialogModifierEmploye() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					AjouterEmploye monDialog = new AjouterEmploye();
+					AfficherEmploye monDialog = new AfficherEmploye();
 					monDialog.setModal(true);
 					monDialog.setVisible(true);
 					monDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);

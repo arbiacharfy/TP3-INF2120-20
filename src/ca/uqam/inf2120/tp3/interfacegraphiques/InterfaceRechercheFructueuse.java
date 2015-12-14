@@ -27,9 +27,16 @@ public class InterfaceRechercheFructueuse extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtRechercher;
+	private JButton btnModifier;
+	private JButton btnRechercher;
+	private JButton btnAjouter;
+	private JButton btnSupprimer;
+	private JButton btnAfficher;
+	
 	AnnuaireTelephonique monAnnuaire ;
 	List<Employe> maListeEmploye ;
 	Employe e1;
+	
 	
 
 	/**
@@ -94,7 +101,7 @@ public class InterfaceRechercheFructueuse extends JFrame {
 		panelMiddle.add(txtRechercher);
 		txtRechercher.setColumns(20);
 		
-		JButton btnRechercher = new JButton("Rechercher");
+		btnRechercher = new JButton("Rechercher");
 		btnRechercher.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(rdbtnMatricule.isSelected()){
@@ -118,18 +125,47 @@ public class InterfaceRechercheFructueuse extends JFrame {
 		contentPane.add(panelBottom, BorderLayout.SOUTH);
 		panelBottom.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JButton btnAjouter = new JButton("Ajouter");
+		btnAjouter = new JButton("Ajouter");
+		btnAjouter.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				AjouterEmploye JDialogAjoutEmploye = new AjouterEmploye();
+				JDialogAjoutEmploye.runJDialogAjoutEmploye();
+				
+			}
+		});
 		panelBottom.add(btnAjouter);
 		
-		JButton btnModifier = new JButton("Modifier");
+		btnModifier = new JButton("Modifier");
+		btnModifier.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				ModifierEmploye JDialogAjoutEmploye = new ModifierEmploye();
+				JDialogAjoutEmploye.runJDialogModifierEmploye();
+				
+			}
+		});
 		btnModifier.setEnabled(false);
 		panelBottom.add(btnModifier);
 		
-		JButton btnSupprimer = new JButton("Supprimer");
+		btnSupprimer = new JButton("Supprimer");
+		btnSupprimer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		btnSupprimer.setEnabled(false);
 		panelBottom.add(btnSupprimer);
 		
-		JButton btnAfficher = new JButton("Afficher");
+		btnAfficher = new JButton("Afficher");
+		btnAfficher.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				AfficherEmploye JDialogAfficherEmploye = new AfficherEmploye();
+				JDialogAfficherEmploye.runJDialogModifierEmploye();
+				
+			}
+		});
 		btnAfficher.setEnabled(false);
 		panelBottom.add(btnAfficher);
 		
