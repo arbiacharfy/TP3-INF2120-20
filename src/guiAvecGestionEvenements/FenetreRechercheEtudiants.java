@@ -141,7 +141,7 @@ public class FenetreRechercheEtudiants extends JFrame {
 		JButton btnSupprimer = new JButton("Supprimer");
 		panelBoutons.add(btnSupprimer);
 		
-		JButton btnFermer = new JButton("Fermer");
+		JButton btnFermer = new JButton ("Fermer");
 		panelBoutons.add(btnFermer);
 		
 	}
