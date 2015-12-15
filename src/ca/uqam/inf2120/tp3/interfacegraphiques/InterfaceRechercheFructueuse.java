@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import ca.uqam.inf2120.tp3.modele.AnnuaireTelephonique;
+import ca.uqam.inf2120.tp3.modele.EmplacementBureau;
 import ca.uqam.inf2120.tp3.modele.Employe;
 
 @SuppressWarnings("serial")
@@ -128,22 +129,44 @@ public class InterfaceRechercheFructueuse extends JFrame {
 		});
 		panelMiddle.add(btnRechercher);
 		tableEtudiants =  new JTable();
+		tableEtudiants.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+			},
+			new String[] {
+				"Matricule", "Nom et Prenom", "Telephone", "adresse courriel", "Numero Etage", "Numero Bureau"
+			}
+		) {
+			Class[] columnTypes = new Class[] {
+				Integer.class, String.class, String.class, String.class, Integer.class, Integer.class
+			};
+			public Class getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
+			}
+		});
+		tableEtudiants.getColumnModel().getColumn(1).setPreferredWidth(89);
+		tableEtudiants.getColumnModel().getColumn(3).setPreferredWidth(91);
+		tableEtudiants.getColumnModel().getColumn(4).setPreferredWidth(81);
+		tableEtudiants.getColumnModel().getColumn(4).setMinWidth(17);
 		tableEtudiants.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 		tableEtudiants.setFillsViewportHeight(true);
 		tableEtudiants.setPreferredScrollableViewportSize(new Dimension(479, 70));
-		tableEtudiants.setModel(creerModeleAvecColonnesNonEditables());
-		tableEtudiants.setRowSelectionInterval(0, 0);
+		//tableEtudiants.setRowSelectionInterval(0, 0);
+		tableEtudiants.setValueAt(222, 0, 0);
+		tableEtudiants.setValueAt(111, 1, 0);
+		tableEtudiants.setValueAt(333, 2, 0);
 		
-		tableEtudiants.getColumnModel().getColumn(0).setResizable(false);
-		tableEtudiants.getColumnModel().getColumn(1).setResizable(false);
-		tableEtudiants.getColumnModel().getColumn(1).setPreferredWidth(65);
-		tableEtudiants.getColumnModel().getColumn(2).setResizable(false);
-		tableEtudiants.getColumnModel().getColumn(2).setPreferredWidth(92);
-		tableEtudiants.getColumnModel().getColumn(3).setResizable(false);
+	
+
 		
 		JScrollPane scrollPane = new JScrollPane(tableEtudiants);
-		scrollPane.setPreferredSize(new Dimension(481, 60));
+		scrollPane.setPreferredSize(new Dimension(481, 120));
 		panelMiddle.add(scrollPane);
+	
 		
 		JPanel panelBottom = new JPanel();
 		contentPane.add(panelBottom, BorderLayout.SOUTH);
@@ -151,10 +174,11 @@ public class InterfaceRechercheFructueuse extends JFrame {
 		
 		btnAjouter = new JButton("Ajouter");
 		btnAjouter.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e) {			
 				
 				AjouterEmploye JDialogAjoutEmploye = new AjouterEmploye();
 				JDialogAjoutEmploye.runJDialogAjoutEmploye();
+				
 				
 			}
 		});
@@ -199,22 +223,6 @@ public class InterfaceRechercheFructueuse extends JFrame {
 		panelBottom.add(btnFermer);
 	}
 	
-	private DefaultTableModel creerModeleAvecColonnesNonEditables() {
-		return new DefaultTableModel(
-			new Object[][] {
-				{"Ismael", "Doukoure", "DOUI01010101", "3"},
-				{"Fr\u00E9d\u00E9ric", "Costin", "COSF02020202", "2"},
-				{"Naila", "H\u00E9raux", "HERN03030303", "4"},
-				{"Moussa", "Fakoly", "FAKM09090911", null},
-			}, new String[] {
-				"Pr\u00E9nom", "Nom", "Code Permanent", "Nb. de cours"
-			}) {
-				boolean[] columnEditables = new boolean[] { false, false, false, false };
-				
-			    public boolean isCellEditable(int row, int column) {
-				     return columnEditables[column];
-			    }
-		};
-	}
+
 
 }

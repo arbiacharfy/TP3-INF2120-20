@@ -16,6 +16,8 @@ import java.awt.GridLayout;
 import javax.swing.JLabel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.UIManager;
+import java.awt.Color;
 
 @SuppressWarnings("serial")
 public class AjouterEmploye extends JDialog {
@@ -29,7 +31,7 @@ public class AjouterEmploye extends JDialog {
 	private JTextField textTelephone;
 	private JTextField textCourriel;
 	
-	JComboBox<String> comboBoxNumEtage;
+	private JComboBox<String> comboBoxNumEtage;
 	private JTextField textNumBureau;
 	
 	AjouterEmploye(){
@@ -45,12 +47,12 @@ public class AjouterEmploye extends JDialog {
 		
 		// panneau top
 		JPanel panelHaut = new JPanel();
-		panelHaut.setBorder(new TitledBorder("Informations de l'Etudiant"));
+		panelHaut.setBorder(new TitledBorder(null, "Information de l'employe", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panneauGlobal.add(panelHaut, BorderLayout.CENTER);
 		panelHaut.setLayout(new GridLayout(7, 2, 0, 0));
 		// Matricule
-		JLabel lblCodePermanent = new JLabel("Code Permanent :");
-		panelHaut.add(lblCodePermanent);
+		JLabel lblMatricule = new JLabel("Matricule :");
+		panelHaut.add(lblMatricule);
 		
 		textMatricule = new JTextField();
 		panelHaut.add(textMatricule);
@@ -113,6 +115,12 @@ public class AjouterEmploye extends JDialog {
 		btnAjouter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				String matricule = getTextMatricule().getText();
+				String nomEtPrenom = getTextNom().getText()+" "+getTextPrenom().getText();
+				String adresseCourriel = getTextCourriel().getText();
+				String numeroTelephone = getTextTelephone().getText();
+				//int bureau = Integer.parseInt(JDialogAjoutEmploye.getTextTelephone().getText()); 
+				System.out.println(matricule);
 				
 			}
 		});
@@ -125,6 +133,8 @@ public class AjouterEmploye extends JDialog {
 		
 		
 	}
+	
+	
 	
 	/**
 	 * Launch the application.
@@ -143,6 +153,90 @@ public class AjouterEmploye extends JDialog {
 				}
 			}
 		});
+	}
+
+
+
+	public JTextField getTextMatricule() {
+		return textMatricule;
+	}
+
+
+
+	public void setTextMatricule(JTextField textMatricule) {
+		this.textMatricule = textMatricule;
+	}
+
+
+
+	public JTextField getTextPrenom() {
+		return textPrenom;
+	}
+
+
+
+	public void setTextPrenom(JTextField textPrenom) {
+		this.textPrenom = textPrenom;
+	}
+
+
+
+	public JTextField getTextNom() {
+		return textNom;
+	}
+
+
+
+	public void setTextNom(JTextField textNom) {
+		this.textNom = textNom;
+	}
+
+
+
+	public JTextField getTextTelephone() {
+		return textTelephone;
+	}
+
+
+
+	public void setTextTelephone(JTextField textTelephone) {
+		this.textTelephone = textTelephone;
+	}
+
+
+
+	public JTextField getTextCourriel() {
+		return textCourriel;
+	}
+
+
+
+	public void setTextCourriel(JTextField textCourriel) {
+		this.textCourriel = textCourriel;
+	}
+
+
+
+	public JComboBox<String> getComboBoxNumEtage() {
+		return comboBoxNumEtage;
+	}
+
+
+
+	public void setComboBoxNumEtage(JComboBox<String> comboBoxNumEtage) {
+		this.comboBoxNumEtage = comboBoxNumEtage;
+	}
+
+
+
+	public JTextField getTextNumBureau() {
+		return textNumBureau;
+	}
+
+
+
+	public void setTextNumBureau(JTextField textNumBureau) {
+		this.textNumBureau = textNumBureau;
 	}
 	
 	
