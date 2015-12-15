@@ -102,18 +102,18 @@ public class FenetreRechercheEtudiants extends JFrame {
 		contentPane.add(panelTable);
 		
 		tableEtudiants = new JTable();
+		tableEtudiants.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Matricule", "Nom et Prenom", "Telephone", "No Etage", "No Bureau"
+			}
+		));
 		tableEtudiants.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tableEtudiants.setFillsViewportHeight(true);
 		tableEtudiants.setPreferredScrollableViewportSize(new Dimension(479, 70));
-		tableEtudiants.setModel(creerModeleAvecColonnesNonEditables());
+	//	tableEtudiants.setModel(creerModeleAvecColonnesNonEditables());
 		tableEtudiants.setRowSelectionInterval(0, 0);
-		
-		tableEtudiants.getColumnModel().getColumn(0).setResizable(false);
-		tableEtudiants.getColumnModel().getColumn(1).setResizable(false);
-		tableEtudiants.getColumnModel().getColumn(1).setPreferredWidth(65);
-		tableEtudiants.getColumnModel().getColumn(2).setResizable(false);
-		tableEtudiants.getColumnModel().getColumn(2).setPreferredWidth(92);
-		tableEtudiants.getColumnModel().getColumn(3).setResizable(false);
 		
 		JScrollPane scrollPane = new JScrollPane(tableEtudiants);
 		scrollPane.setPreferredSize(new Dimension(481, 60));
@@ -141,7 +141,7 @@ public class FenetreRechercheEtudiants extends JFrame {
 		JButton btnSupprimer = new JButton("Supprimer");
 		panelBoutons.add(btnSupprimer);
 		
-		JButton btnFermer = new JButton ("Fermer");
+		JButton btnFermer = new JButton("Fermer");
 		panelBoutons.add(btnFermer);
 		
 	}

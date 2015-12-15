@@ -1,6 +1,7 @@
 package ca.uqam.inf2120.tp3.interfacegraphiques;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -8,13 +9,19 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.FlowLayout;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
+
 import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JButton;
 
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +39,7 @@ public class InterfaceRechercheFructueuse extends JFrame {
 	private JButton btnAjouter;
 	private JButton btnSupprimer;
 	private JButton btnAfficher;
-	
+	private JTable tableEtudiants;
 	AnnuaireTelephonique monAnnuaire ;
 	List<Employe> maListeEmploye ;
 	Employe e1;
@@ -120,6 +127,23 @@ public class InterfaceRechercheFructueuse extends JFrame {
 			}
 		});
 		panelMiddle.add(btnRechercher);
+		tableEtudiants =  new JTable();
+		tableEtudiants.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+		tableEtudiants.setFillsViewportHeight(true);
+		tableEtudiants.setPreferredScrollableViewportSize(new Dimension(479, 70));
+		tableEtudiants.setModel(creerModeleAvecColonnesNonEditables());
+		tableEtudiants.setRowSelectionInterval(0, 0);
+		
+		tableEtudiants.getColumnModel().getColumn(0).setResizable(false);
+		tableEtudiants.getColumnModel().getColumn(1).setResizable(false);
+		tableEtudiants.getColumnModel().getColumn(1).setPreferredWidth(65);
+		tableEtudiants.getColumnModel().getColumn(2).setResizable(false);
+		tableEtudiants.getColumnModel().getColumn(2).setPreferredWidth(92);
+		tableEtudiants.getColumnModel().getColumn(3).setResizable(false);
+		
+		JScrollPane scrollPane = new JScrollPane(tableEtudiants);
+		scrollPane.setPreferredSize(new Dimension(481, 60));
+		panelMiddle.add(scrollPane);
 		
 		JPanel panelBottom = new JPanel();
 		contentPane.add(panelBottom, BorderLayout.SOUTH);
@@ -173,6 +197,24 @@ public class InterfaceRechercheFructueuse extends JFrame {
 		
 		JButton btnFermer = new JButton("Fermer");
 		panelBottom.add(btnFermer);
+	}
+	
+	private DefaultTableModel creerModeleAvecColonnesNonEditables() {
+		return new DefaultTableModel(
+			new Object[][] {
+				{"Ismael", "Doukoure", "DOUI01010101", "3"},
+				{"Fr\u00E9d\u00E9ric", "Costin", "COSF02020202", "2"},
+				{"Naila", "H\u00E9raux", "HERN03030303", "4"},
+				{"Moussa", "Fakoly", "FAKM09090911", null},
+			}, new String[] {
+				"Pr\u00E9nom", "Nom", "Code Permanent", "Nb. de cours"
+			}) {
+				boolean[] columnEditables = new boolean[] { false, false, false, false };
+				
+			    public boolean isCellEditable(int row, int column) {
+				     return columnEditables[column];
+			    }
+		};
 	}
 
 }
