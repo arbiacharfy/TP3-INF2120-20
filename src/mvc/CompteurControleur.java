@@ -23,7 +23,7 @@ public class CompteurControleur implements ActionListener {
     CompteurControleur(CompteurVue uneVue){
         this.modele = new CompteurModele();
         vue = uneVue ;
-        vue.refresh(modele.getValeur());
+        
       }
     
     /**

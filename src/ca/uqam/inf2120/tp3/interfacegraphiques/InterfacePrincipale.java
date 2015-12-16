@@ -20,19 +20,13 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 
 import javax.swing.JTextField;
-import ca.uqam.inf2120.tp3.controller.ControllerRecherche;
+import ca.uqam.inf2120.tp3.controller.ControllerInterfacePrincipale;
 
 
 @SuppressWarnings("serial")
 public class InterfacePrincipale extends JFrame {
 
-	public ControllerRecherche getRechercheControleur() {
-		return RechercheControleur;
-	}
 
-	public void setRechercheControleur(ControllerRecherche rechercheControleur) {
-		RechercheControleur = rechercheControleur;
-	}
 
 	private JPanel contentPane;
 	private JTextField txtRechercher;
@@ -43,143 +37,96 @@ public class InterfacePrincipale extends JFrame {
 	private JButton btnAfficher;
 	private JButton btnFermer;
 	private JTable tableEtudiants;
-	private ControllerRecherche RechercheControleur;
+	private ControllerInterfacePrincipale RechercheControleur;
 	private JScrollPane scrollPane;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					InterfacePrincipale frame = new InterfacePrincipale();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+
 
 	/**
 	 * Create the frame.
 	 */
 	public InterfacePrincipale() {
+	
 
-		// Création du controleur (Controller du MVC)
-		RechercheControleur = new ControllerRecherche(this);
-
-		setTitle("Media Pour Tous (MPT) Annuaire Telephonique");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 624, 346);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(new BorderLayout(2, 2));
-
-		JPanel panelTop = new JPanel();
-		panelTop.setBorder(new TitledBorder(null, "Recherche", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		contentPane.add(panelTop, BorderLayout.NORTH);
-		panelTop.setLayout(new GridLayout(0, 3, 0, 0));
-
-		JRadioButton rdbtnMatricule = new JRadioButton("Matricule");
-		panelTop.add(rdbtnMatricule);
-
-		JRadioButton rdbtntousEmployes = new JRadioButton("Tous les employes");
-		panelTop.add(rdbtntousEmployes);
-
-		JLabel label = new JLabel("");
-		panelTop.add(label);
-
-		JRadioButton rdbtnPrenom = new JRadioButton("Prenom");
-		panelTop.add(rdbtnPrenom);
-
-		JRadioButton rdbtnNom = new JRadioButton("Nom");
-		panelTop.add(rdbtnNom);
-
-		JLabel label_1 = new JLabel("");
-		panelTop.add(label_1);
-
-		JPanel panelMiddle = new JPanel();
-		panelMiddle.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		contentPane.add(panelMiddle, BorderLayout.CENTER);
-
-		txtRechercher = new JTextField();
-		panelMiddle.add(txtRechercher);
-		txtRechercher.setColumns(20);
-		scrollPane = new JScrollPane(tableEtudiants);
-		scrollPane.setPreferredSize(new Dimension(481, 120));
-		//panelMiddle.add(tableEtudiants);
-
-		btnRechercher = new JButton("Rechercher");
-		// Ajouter le controleur (écouteur) aux composants
-		btnRechercher.addActionListener(RechercheControleur);
-		panelMiddle.add(btnRechercher);
+	
 		
-//		tableEtudiants.setModel(new DefaultTableModel(
-//				new Object[][] { { null, null, null, null, null, null }, { null, null, null, null, null, null },
-//						{ null, null, null, null, null, null }, { null, null, null, null, null, null },
-//						{ null, null, null, null, null, null }, },
-//				new String[] { "Matricule", "Nom et Prenom", "Telephone", "adresse courriel", "Numero Etage",
-//						"Numero Bureau" }) {
-//			Class[] columnTypes = new Class[] { Integer.class, String.class, String.class, String.class, Integer.class,
-//					Integer.class };
-//
-//			public Class getColumnClass(int columnIndex) {
-//				return columnTypes[columnIndex];
-//			}
-//		});
 
-//		tableEtudiants.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-//		tableEtudiants.setFillsViewportHeight(true);
-//		tableEtudiants.setPreferredScrollableViewportSize(new Dimension(479, 70));
-//		// tableEtudiants.setRowSelectionInterval(0, 0);
-//		tableEtudiants.setValueAt(222, 0, 0);
-//		tableEtudiants.setValueAt(111, 1, 0);
-//		tableEtudiants.setValueAt(333, 2, 0);
-//
- 	
+			setTitle("Media Pour Tous (MPT) Annuaire Telephonique");
+			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			setBounds(100, 100, 624, 346);
+			contentPane = new JPanel();
+			contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+			setContentPane(contentPane);
+			contentPane.setLayout(new BorderLayout(2, 2));
 
-		JPanel panelBottom = new JPanel();
-		contentPane.add(panelBottom, BorderLayout.SOUTH);
-		panelBottom.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+			JPanel panelTop = new JPanel();
+			panelTop.setBorder(new TitledBorder(null, "Recherche", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+			contentPane.add(panelTop, BorderLayout.NORTH);
+			panelTop.setLayout(new GridLayout(0, 3, 0, 0));
 
-		btnAjouter = new JButton("Ajouter");
-		btnAjouter.addActionListener(RechercheControleur);
+			JRadioButton rdbtnMatricule = new JRadioButton("Matricule");
+			panelTop.add(rdbtnMatricule);
 
-		// btnAjouter.addActionListener(new ActionListener() {
-		// public void actionPerformed(ActionEvent e) {
-		//
-		// AjouterEmploye JDialogAjoutEmploye = new AjouterEmploye();
-		// JDialogAjoutEmploye.runJDialogAjoutEmploye();
-		//
-		// }
-		// });
-		panelBottom.add(btnAjouter);
+			JRadioButton rdbtntousEmployes = new JRadioButton("Tous les employes");
+			panelTop.add(rdbtntousEmployes);
 
-		btnModifier = new JButton("Modifier");
-		btnModifier.addActionListener(RechercheControleur);
+			JLabel label = new JLabel("");
+			panelTop.add(label);
 
-		btnModifier.setEnabled(false);
-		panelBottom.add(btnModifier);
+			JRadioButton rdbtnPrenom = new JRadioButton("Prenom");
+			panelTop.add(rdbtnPrenom);
 
-		btnSupprimer = new JButton("Supprimer");
-		btnSupprimer.addActionListener(RechercheControleur);		
+			JRadioButton rdbtnNom = new JRadioButton("Nom");
+			panelTop.add(rdbtnNom);
 
-		btnSupprimer.setEnabled(false);
-		panelBottom.add(btnSupprimer);
+			JLabel label_1 = new JLabel("");
+			panelTop.add(label_1);
 
-		btnAfficher = new JButton("Afficher");
-		btnAfficher.addActionListener(RechercheControleur);
+			JPanel panelMiddle = new JPanel();
+			panelMiddle.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+			contentPane.add(panelMiddle, BorderLayout.CENTER);
 
-		btnAfficher.setEnabled(false);
-		panelBottom.add(btnAfficher);
+			txtRechercher = new JTextField();
+			panelMiddle.add(txtRechercher);
+			txtRechercher.setColumns(20);
+			scrollPane = new JScrollPane(tableEtudiants);
+			scrollPane.setPreferredSize(new Dimension(481, 120));
+			//panelMiddle.add(tableEtudiants);
+			btnRechercher = new JButton("Rechercher");
+			panelMiddle.add(btnRechercher);
+			
+			JPanel panelBottom = new JPanel();
+			contentPane.add(panelBottom, BorderLayout.SOUTH);
+			panelBottom.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
-		btnFermer = new JButton("Fermer");
-		btnFermer.addActionListener(RechercheControleur);
-		panelBottom.add(btnFermer);
-	}
+			btnAjouter = new JButton("Ajouter");
+			panelBottom.add(btnAjouter);
+
+			btnModifier = new JButton("Modifier");
+			btnModifier.setEnabled(false);
+			panelBottom.add(btnModifier);
+			btnSupprimer = new JButton("Supprimer");
+			btnSupprimer.setEnabled(false);
+			panelBottom.add(btnSupprimer);
+
+			btnAfficher = new JButton("Afficher");
+			btnAfficher.setEnabled(false);
+			panelBottom.add(btnAfficher);
+
+			btnFermer = new JButton("Fermer");
+			panelBottom.add(btnFermer);
+			
+			// Création du controleur (Controller du MVC)
+			RechercheControleur = new ControllerInterfacePrincipale(this);
+
+			// Ajouter le controleur (écouteur) aux composants
+			btnRechercher.addActionListener(RechercheControleur);
+			btnAjouter.addActionListener(RechercheControleur);
+			btnModifier.addActionListener(RechercheControleur);
+			btnSupprimer.addActionListener(RechercheControleur);		
+			btnAfficher.addActionListener(RechercheControleur);
+			btnFermer.addActionListener(RechercheControleur);
+		}
 
 	public JTextField getTxtRechercher() {
 		return txtRechercher;
@@ -253,6 +200,28 @@ public class InterfacePrincipale extends JFrame {
 		this.tableEtudiants = tableEtudiants;
 	}
 	
+	public ControllerInterfacePrincipale getRechercheControleur() {
+		return RechercheControleur;
+	}
+
+	public void setRechercheControleur(ControllerInterfacePrincipale rechercheControleur) {
+		RechercheControleur = rechercheControleur;
+	}
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					InterfacePrincipale frame = new InterfacePrincipale();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 	
 
 }
