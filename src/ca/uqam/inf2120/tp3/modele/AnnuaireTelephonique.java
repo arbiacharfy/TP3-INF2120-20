@@ -30,6 +30,20 @@ public class AnnuaireTelephonique {
 	public AnnuaireTelephonique() {
 		listeDesEmployes = new GroupeImpl<Employe>();
 	}
+	
+	
+
+	public GroupeTda<Employe> getListeDesEmployes() {
+		return listeDesEmployes;
+	}
+
+
+
+	public void setListeDesEmployes(GroupeTda<Employe> listeDesEmployes) {
+		this.listeDesEmployes = listeDesEmployes;
+	}
+
+
 
 	/**
 	 * Ajoute un employé dans la liste des employé(e)s.

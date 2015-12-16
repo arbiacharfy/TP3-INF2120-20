@@ -31,7 +31,7 @@ public class AfficherEmploye extends JDialog {
 	JComboBox<String> comboBoxNumEtage;
 	private JTextField textNumBureau;
 	
-	AfficherEmploye(){
+	public AfficherEmploye(){
 				
 		// information sur la fenetre
 		setTitle("Media Pour Tous - Affichage d'un employe"); // titre de la fenetre

@@ -12,6 +12,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import javax.swing.border.TitledBorder;
+
+import ca.uqam.inf2120.tp3.controller.ControllerAjouterEmploye;
+
 import java.awt.GridLayout;
 import javax.swing.JLabel;
 import java.awt.event.ActionListener;
@@ -33,8 +36,11 @@ public class AjouterEmploye extends JDialog {
 	
 	private JComboBox<String> comboBoxNumEtage;
 	private JTextField textNumBureau;
+	private JButton btnAnnuler;
+	private JButton btnAjouter;
+	private ControllerAjouterEmploye AjouterEmployerControlleur; 
 	
-	AjouterEmploye(){
+	public AjouterEmploye(){
 				
 		// information sur la fenetre
 		setTitle(titre); // titre de la fenetre
@@ -111,22 +117,12 @@ public class AjouterEmploye extends JDialog {
 		flowLayout.setAlignment(FlowLayout.RIGHT);
 		panneauGlobal.add(panelBas, BorderLayout.SOUTH);
 		
-		JButton btnAjouter = new JButton("Ajouter");
-		btnAjouter.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				String matricule = getTextMatricule().getText();
-				String nomEtPrenom = getTextNom().getText()+" "+getTextPrenom().getText();
-				String adresseCourriel = getTextCourriel().getText();
-				String numeroTelephone = getTextTelephone().getText();
-				//int bureau = Integer.parseInt(JDialogAjoutEmploye.getTextTelephone().getText()); 
-				System.out.println(matricule);
-				
-			}
-		});
+		btnAjouter = new JButton("Ajouter");
+		btnAjouter.addActionListener(AjouterEmployerControlleur);
+
 		panelBas.add(btnAjouter);
 		
-		JButton btnAnnuler = new JButton("Annuler");
+		btnAnnuler = new JButton("Annuler");
 		panelBas.add(btnAnnuler);
 		
 		
@@ -237,6 +233,42 @@ public class AjouterEmploye extends JDialog {
 
 	public void setTextNumBureau(JTextField textNumBureau) {
 		this.textNumBureau = textNumBureau;
+	}
+
+
+
+	public JButton getBtnAnnuler() {
+		return btnAnnuler;
+	}
+
+
+
+	public void setBtnAnnuler(JButton btnAnnuler) {
+		this.btnAnnuler = btnAnnuler;
+	}
+
+
+
+	public JButton getBtnAjouter() {
+		return btnAjouter;
+	}
+
+
+
+	public void setBtnAjouter(JButton btnAjouter) {
+		this.btnAjouter = btnAjouter;
+	}
+
+
+
+	public ControllerAjouterEmploye getAjouterEmployerControlleur() {
+		return AjouterEmployerControlleur;
+	}
+
+
+
+	public void setAjouterEmployerControlleur(ControllerAjouterEmploye ajouterEmployerControlleur) {
+		AjouterEmployerControlleur = ajouterEmployerControlleur;
 	}
 	
 	

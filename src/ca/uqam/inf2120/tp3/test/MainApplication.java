@@ -11,7 +11,7 @@ public class MainApplication {
 			@Override
 			public void run() {
 				
-				InterfaceRechercheFructueuse frame = new InterfaceRechercheFructueuse();
+				InterfacePrincipale frame = new InterfacePrincipale();
 				frame.setVisible(true);
 //				Model model = new Model(0);
 //				View view = new View("-");

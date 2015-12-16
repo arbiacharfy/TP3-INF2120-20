@@ -8,10 +8,10 @@ import ca.uqam.inf2120.tp3.interfacegraphiques.*;
 
 public class Controller {
 	private AnnuaireTelephonique model;
-	private InterfaceRechercheFructueuse view;
+	private InterfacePrincipale view;
 	private ActionListener actionListener;
 
-	public Controller(AnnuaireTelephonique model, InterfaceRechercheFructueuse view) {
+	public Controller(AnnuaireTelephonique model, InterfacePrincipale view) {
 		this.model = model;
 		this.view = view;
 

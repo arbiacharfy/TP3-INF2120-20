@@ -30,7 +30,7 @@ public class ModifierEmploye extends JDialog {
 	JComboBox<String> comboBoxNumEtage;
 	private JTextField textNumBureau;
 	
-	ModifierEmploye(){
+	public ModifierEmploye(){
 				
 		// information sur la fenetre
 		setTitle("Media Pour Tous -Modification d'un employe"); // titre de la fenetre
