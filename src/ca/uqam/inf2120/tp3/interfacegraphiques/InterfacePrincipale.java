@@ -16,8 +16,9 @@ import javax.swing.table.DefaultTableModel;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
-import java.util.Iterator;
+import java.text.DecimalFormat;
 import java.util.List;
+import java.util.Locale;
 
 import javax.swing.JLabel;
 
@@ -27,21 +28,27 @@ import javax.swing.JTextField;
 import ca.uqam.inf2120.tp3.controller.ControllerInterfacePrincipale;
 import ca.uqam.inf2120.tp3.modele.Employe;
 
+
 @SuppressWarnings("serial")
 public class InterfacePrincipale extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField txtRechercher;
 	private JButton btnModifier;
-	private JButton btnRechercher;
 	private JButton btnAjouter;
 	private JButton btnSupprimer;
 	private JButton btnAfficher;
 	private JButton btnFermer;
+	private JButton btnRechercher;
 	private JTable jTableEmploye;
+	private JRadioButton rdbtnMatricule;
+	private JRadioButton rdbtntousEmployes;
+	private JRadioButton rdbtnPrenom;
+	private JRadioButton rdbtnNom;
+
 	private DefaultTableModel modeleTableEmploye;
 	private ControllerInterfacePrincipale RechercheControleur;
 	private JScrollPane scrollPane;
+	private JTextField txtRechercher;
 
 	/**
 	 * Create the frame.
@@ -61,19 +68,19 @@ public class InterfacePrincipale extends JFrame {
 		contentPane.add(panelTop, BorderLayout.NORTH);
 		panelTop.setLayout(new GridLayout(0, 3, 0, 0));
 
-		JRadioButton rdbtnMatricule = new JRadioButton("Matricule");
+		rdbtnMatricule = new JRadioButton("Matricule");
 		panelTop.add(rdbtnMatricule);
 
-		JRadioButton rdbtntousEmployes = new JRadioButton("Tous les employes");
+		rdbtntousEmployes = new JRadioButton("Tous les employes");
 		panelTop.add(rdbtntousEmployes);
 
 		JLabel label = new JLabel("");
 		panelTop.add(label);
 
-		JRadioButton rdbtnPrenom = new JRadioButton("Prenom");
+		rdbtnPrenom = new JRadioButton("Prenom");
 		panelTop.add(rdbtnPrenom);
 
-		JRadioButton rdbtnNom = new JRadioButton("Nom");
+		rdbtnNom = new JRadioButton("Nom");
 		panelTop.add(rdbtnNom);
 
 		JLabel label_1 = new JLabel("");
@@ -82,13 +89,20 @@ public class InterfacePrincipale extends JFrame {
 		JPanel panelMiddle = new JPanel();
 		panelMiddle.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		contentPane.add(panelMiddle, BorderLayout.CENTER);
+		panelMiddle.setLayout(new GridLayout(2, 1, 0, 0));
+
+		JPanel JPanelMiddleTop = new JPanel();
+		panelMiddle.add(JPanelMiddleTop);
 
 		txtRechercher = new JTextField();
-		panelMiddle.add(txtRechercher);
+		JPanelMiddleTop.add(txtRechercher);
 		txtRechercher.setColumns(20);
 
 		btnRechercher = new JButton("Rechercher");
-		panelMiddle.add(btnRechercher);
+		JPanelMiddleTop.add(btnRechercher);
+
+		JPanel JPanelTable = new JPanel();
+		panelMiddle.add(JPanelTable);
 
 		JPanel panelBottom = new JPanel();
 		contentPane.add(panelBottom, BorderLayout.SOUTH);
@@ -113,44 +127,46 @@ public class InterfacePrincipale extends JFrame {
 
 		// Création du controleur (Controller du MVC)
 		RechercheControleur = new ControllerInterfacePrincipale(this);
-
-		// Ajouter le controleur (écouteur) aux composants
-		btnRechercher.addActionListener(RechercheControleur);
 		btnAjouter.addActionListener(RechercheControleur);
 		btnModifier.addActionListener(RechercheControleur);
 		btnSupprimer.addActionListener(RechercheControleur);
 		btnAfficher.addActionListener(RechercheControleur);
 		btnFermer.addActionListener(RechercheControleur);
-	
-		
-		
-		
+		btnRechercher.addActionListener(RechercheControleur);
 
-		// On crée une entête et des champs vides
-		String[] entete = { "Matricule", "Nom et Prénom", "Téléphone", "No Étage", "No Bureau" };
-		Object[][] data = null;
+		// jTableEmploye.addActionListener(RechercheControleur);
 
-		// Si la liste n'est pas vide
-		// on met tous les éléments dans notre JTable à 2 dimensions
+		modeleTableEmploye = new DefaultTableModel() {
+			boolean[] columnEditables = new boolean[] { false, false, false, false, false };
 
-		// On met tous les éléments
-		List<Employe> employes = RechercheControleur.getModele().rechercherToutesLesEmployes();
-		// On crée le tableau statique
-		data = new Object[employes.size()][5];
-		for (int i = 0; i < employes.size(); i++) {
-			Employe employe = employes.get(i);
-			data[i][0] = employe.getMatricule();
-			data[i][1] = employe.getNom() + " " + employe.getPrenom();
-			data[i][2] = employe.getNumeroTelephone();
-			data[i][3] = employe.getBureau().getNumeroEtage();
-			data[i][4] = employe.getBureau().getNumeroBureau();
-			i++;
-		}
-		//fireTableDataChanged();
-		DefaultTableModel modele = new DefaultTableModel(data, entete);
-		jTableEmploye = new JTable(modele);
-		panelMiddle.add(jTableEmploye);
-		//jTableEmploye.addActionListener(RechercheControleur);
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			};
+		};
+		modeleTableEmploye.addColumn("Matricule");
+		modeleTableEmploye.addColumn("Nom et Prenom");
+		modeleTableEmploye.addColumn("Telephone");
+		modeleTableEmploye.addColumn("Numero d'etage");
+		modeleTableEmploye.addColumn("Numero de Bureau");
+
+		jTableEmploye = new JTable(modeleTableEmploye);
+		jTableEmploye.getTableHeader().setReorderingAllowed(false);
+		jTableEmploye.getColumnModel().getColumn(0).setPreferredWidth(275);
+		scrollPane = new JScrollPane(jTableEmploye);
+		scrollPane.setVisible(false);
+
+		JPanelTable.add(scrollPane);
+		// Définir le type de fermeture
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+	}
+
+	public JButton getBtnRechercher() {
+		return btnRechercher;
+	}
+
+	public void setBtnRechercher(JButton btnRechercher) {
+		this.btnRechercher = btnRechercher;
 	}
 
 	public JTextField getTxtRechercher() {
@@ -175,14 +191,6 @@ public class InterfacePrincipale extends JFrame {
 
 	public void setBtnModifier(JButton btnModifier) {
 		this.btnModifier = btnModifier;
-	}
-
-	public JButton getBtnRechercher() {
-		return btnRechercher;
-	}
-
-	public void setBtnRechercher(JButton btnRechercher) {
-		this.btnRechercher = btnRechercher;
 	}
 
 	public JButton getBtnAjouter() {
@@ -240,29 +248,105 @@ public class InterfacePrincipale extends JFrame {
 	public void setRechercheControleur(ControllerInterfacePrincipale rechercheControleur) {
 		RechercheControleur = rechercheControleur;
 	}
+	
+	
+
+	public JRadioButton getRdbtnMatricule() {
+		return rdbtnMatricule;
+	}
+
+	public void setRdbtnMatricule(JRadioButton rdbtnMatricule) {
+		this.rdbtnMatricule = rdbtnMatricule;
+	}
+
+	public JRadioButton getRdbtntousEmployes() {
+		return rdbtntousEmployes;
+	}
+
+	public void setRdbtntousEmployes(JRadioButton rdbtntousEmployes) {
+		this.rdbtntousEmployes = rdbtntousEmployes;
+	}
+
+	public JRadioButton getRdbtnPrenom() {
+		return rdbtnPrenom;
+	}
+
+	public void setRdbtnPrenom(JRadioButton rdbtnPrenom) {
+		this.rdbtnPrenom = rdbtnPrenom;
+	}
+
+	public JRadioButton getRdbtnNom() {
+		return rdbtnNom;
+	}
+
+	public void setRdbtnNom(JRadioButton rdbtnNom) {
+		this.rdbtnNom = rdbtnNom;
+	}
+
 	// Rafraîchir la liste des résultats
-	public void refresh() {			
+	public void refresh() {
 		// Active le mode refresh
 		RechercheControleur.setModeRefresh(true);
 		// Crée un nouvel évènement et l'envoie à l'écouteur
-	ActionEvent event = new ActionEvent(jTableEmploye,0,null);
-	this.RechercheControleur.actionPerformed(event);	
+		ActionEvent event = new ActionEvent(btnRechercher, 0, null);
+		this.RechercheControleur.actionPerformed(event);
 	}
+	
+
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					InterfacePrincipale frame = new InterfacePrincipale();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+
+		InterfacePrincipale frame = new InterfacePrincipale();
+		frame.setVisible(true);
+
 	}
+	
+//	jTableEmploye = new JTable(modeleTableEmploye);
+	// Afficher la liste des résultats
+		public void afficherResultats(List<Employe> liste) {
+			
+			if (liste.isEmpty()) {
+				
+				// Suppression de toutes les lignes du tableau
+				while (modeleTableEmploye.getRowCount() != 0) {
+					modeleTableEmploye.removeRow(0);
+				}
+				
+				// Rend non visible le tableau et les boutons
+				// Modifier, Supprimer, Afficher
+				scrollPane.setVisible(false);
+				btnModifier.setEnabled(false);
+				btnSupprimer.setEnabled(false);
+				btnAfficher.setEnabled(false);
+				
+			} else {
+				
+				// Ajout de chaque ligne de la liste 
+				// de résultats dans le tableau
+				Locale.setDefault(new Locale("en", "US"));
+				DecimalFormat df = new DecimalFormat("##.00");
+				
+				for (Employe p : liste) {
+					Object[] ligne = { p.getMatricule(), 
+										p.getNom()+" "+p.getPrenom(),
+										p.getNumeroTelephone(),
+										p.getBureau().getNumeroEtage(),
+										p.getBureau().getNumeroBureau() };
+					
+					modeleTableEmploye.addRow(ligne);
+				}
+				
+				// Rend visible le tableau et les boutons
+				// Modifier, Supprimer, Afficher
+				jTableEmploye.setRowSelectionInterval(0, 0);
+				scrollPane.setVisible(true);
+				btnModifier.setEnabled(true);
+				btnSupprimer.setEnabled(true);
+				btnAfficher.setEnabled(true);	
+			}
+		}
 
 }
