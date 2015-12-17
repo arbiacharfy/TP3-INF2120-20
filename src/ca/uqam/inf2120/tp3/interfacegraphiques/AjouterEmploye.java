@@ -23,8 +23,9 @@ import javax.swing.JLabel;
 @SuppressWarnings("serial")
 public class AjouterEmploye extends JDialog {
 
-	private AnnuaireTelephonique modele;
-
+	private ControllerAjouterEmploye AjouterEmployerControlleur;
+	
+	
 	JPanel panneauGlobal;
 	String titre = "Media Pour Tous - Ajout d'un employe";
 
@@ -37,9 +38,11 @@ public class AjouterEmploye extends JDialog {
 	private JTextField textNumBureau;
 	private JButton btnAnnuler;
 	private JButton btnAjouter;
-	private ControllerAjouterEmploye AjouterEmployerControlleur;
+	
 
-	public AjouterEmploye(AnnuaireTelephonique modele) {
+	public AjouterEmploye(InterfacePrincipale vue , boolean bool, AnnuaireTelephonique modele) {
+		
+		super(vue,bool);
 //		
 //		init();
 		// information sur la fenetre
@@ -113,7 +116,7 @@ public class AjouterEmploye extends JDialog {
 				btnAnnuler = new JButton("Annuler");
 				panelBas.add(btnAnnuler);
 		// Création du controleur (Controller du MVC)
-		AjouterEmployerControlleur = new ControllerAjouterEmploye(this, modele);
+				AjouterEmployerControlleur = new ControllerAjouterEmploye(this, modele);
 		btnAjouter.addActionListener(AjouterEmployerControlleur);
 		btnAnnuler.addActionListener(AjouterEmployerControlleur);
 
@@ -197,29 +200,7 @@ public class AjouterEmploye extends JDialog {
 	 * Launch the application.
 	 */
 
-	public void runJDialogAjoutEmploye() {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					AjouterEmploye monDialog = new AjouterEmploye(modele);
-					monDialog.setModal(true);
-					monDialog.setVisible(true);
-					monDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-					monDialog.pack();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
-	public AnnuaireTelephonique getModele() {
-		return modele;
-	}
-
-	public void setModele(AnnuaireTelephonique modele) {
-		this.modele = modele;
-	}
 
 	public JTextField getTextMatricule() {
 		return textMatricule;

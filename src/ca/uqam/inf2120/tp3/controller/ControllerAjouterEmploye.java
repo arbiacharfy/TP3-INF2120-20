@@ -13,21 +13,21 @@ import ca.uqam.inf2120.tp3.modele.Employe;
 public class ControllerAjouterEmploye implements ActionListener {
 	private AjouterEmploye vue;
 	private AnnuaireTelephonique modele;
-	private InterfacePrincipale vu;
+	
 	
 
 	public ControllerAjouterEmploye(AjouterEmploye uneVue, AnnuaireTelephonique modele) {
 
 		vue = uneVue;
 		this.modele = modele;
-		//System.out.println(modele.getListeDesEmployes().nbElements());
+
+
 
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e){
-		vu = new InterfacePrincipale();
-		ControllerInterfacePrincipale t = new ControllerInterfacePrincipale(vu);
+
 
 		Object source = e.getSource();
 		 if(source == vue.getBtnAjouter()) {			
@@ -42,8 +42,11 @@ public class ControllerAjouterEmploye implements ActionListener {
 			e1.setBureau(Etage_Bureau);
 					
 			modele.ajouterEmploye(e1);
+			System.out.println(modele.getListeDesEmployes().nbElements());
 			
-			
+			// Appelle la fonction Rafraîchir de la fenêtre principale
+	    	vue.dispose();
+    	    ((InterfacePrincipale)vue.getParent()).refresh();
 		
 
 		}else  if(source == vue.getBtnAnnuler()) {

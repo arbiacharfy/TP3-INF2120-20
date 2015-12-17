@@ -2,22 +2,29 @@ package ca.uqam.inf2120.tp3.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import ca.uqam.inf2120.tp3.interfacegraphiques.AfficherEmploye;
+import java.util.List;
+
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
 import ca.uqam.inf2120.tp3.interfacegraphiques.AjouterEmploye;
 import ca.uqam.inf2120.tp3.interfacegraphiques.InterfacePrincipale;
 import ca.uqam.inf2120.tp3.modele.AnnuaireTelephonique;
 import ca.uqam.inf2120.tp3.modele.EmplacementBureau;
 import ca.uqam.inf2120.tp3.modele.Employe;
 
+
 public class ControllerInterfacePrincipale implements ActionListener {
 	
 	private AnnuaireTelephonique modele;	
 	private InterfacePrincipale vue;
+	private List<Employe> listeEmploye;
+	private boolean modeRefresh;
 
 	// Constructeur avec la vue à controler comme paramètre
 	public ControllerInterfacePrincipale(InterfacePrincipale uneVue) {
 		
-		this.modele = new AnnuaireTelephonique();
+		modele = new AnnuaireTelephonique();
 		vue = uneVue;
 		
 		Employe e1 = new Employe();
@@ -50,7 +57,10 @@ public class ControllerInterfacePrincipale implements ActionListener {
 		modele.ajouterEmploye(e3);
 		
 		System.out.println(modele.getListeDesEmployes().nbElements());
+	
+		
 	}
+
 
 
 	
@@ -62,8 +72,8 @@ public class ControllerInterfacePrincipale implements ActionListener {
         Object source = e.getSource();
         if(source == vue.getBtnAjouter()) {
         	
-        	AjouterEmploye JDialogAjoutEmploye = new AjouterEmploye(modele);
-         	JDialogAjoutEmploye.runJDialogAjoutEmploye();        	
+        	AjouterEmploye JDialogAjoutEmploye = new AjouterEmploye(vue, true, modele);
+        	JDialogAjoutEmploye.setVisible(true);    	
        
         }else  if(source == vue.getBtnRechercher()){
         	
@@ -110,6 +120,22 @@ public class ControllerInterfacePrincipale implements ActionListener {
 
 	public void setVue(InterfacePrincipale vue) {
 		this.vue = vue;
+	}
+
+
+
+
+
+	public boolean isModeRefresh() {
+		return modeRefresh;
+	}
+
+
+
+
+
+	public void setModeRefresh(boolean modeRefresh) {
+		this.modeRefresh = modeRefresh;
 	}
 	
 	
