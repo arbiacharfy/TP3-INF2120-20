@@ -64,160 +64,110 @@ public class ControllerInterfacePrincipale implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
-//		// Obtenir la source de l'événement.
-//		Object source = e.getSource();
-//		if (vue.getRdbtntousEmployes().isSelected()) {
-//			vue.getTxtRechercher().setText(null);
-//			vue.getTxtRechercher().setEditable(false);
-//		} else {
-//			vue.getTxtRechercher().setEditable(true);
-//		}
-//		if (source == vue.getBtnAjouter()) {
-//
-//			AjouterEmploye JDialogAjoutEmploye = new AjouterEmploye(vue, true, modele);
-//			JDialogAjoutEmploye.setVisible(true);
-//
-//		} else if (source == vue.getBtnRechercher()) {
-//
-//			listeEmploye = new ArrayList<Employe>();
-//			vue.afficherResultats(listeEmploye);
-//
-//				// Appelle la fonction rechercher tous les pneus
-//			if (vue.getRdbtntousEmployes().isSelected()) {
-//				listeEmploye = modele.rechercherToutesLesEmployes(); 
-//
-//				// Message information si aucun pneu trouvé
-//				if (listeEmploye.isEmpty() && !modeRefresh) {
-//
-//
-//						String[] boutons = { "Fermer" };
-//						String information = "Aucun element dans la liste";
-//
-//						JOptionPane.showOptionDialog(vue, information, "Message", JOptionPane.CLOSED_OPTION,
-//								JOptionPane.INFORMATION_MESSAGE, null, boutons, boutons[0]);		
-//
-//				}
-//
-//			} else {
-//
-//				// Récupère la valeur saisie pour la recherche
-//				int valeurSaisie = 0;
-//				try {
-//					valeurSaisie = Integer.parseInt(vue.getSaisieRecherche().getText());
-//				} catch (Exception e) {
-//				}
-//
-//				if (valeurSaisie > 0) {
-//
-//					// Appeler la fonction Rechercher par diamètre
-//					if (vue.getRadioBoutonDiametre().isSelected()) {
-//						listeEmploye = modele.rechercherParDiametre(valeurSaisie, saison);
-//
-//						// Message information si aucun pneu trouvé
-//						if (listeEmploye.isEmpty() && !modeRefresh) {					
-//
-//								String[] boutons = { "Fermer" };
-//								String information = "Aucun pneu d'hiver trouvé " + "avec le diamètre " + valeurSaisie
-//										+ " !";
-//
-//								JOptionPane.showOptionDialog(vue, information, "Message", JOptionPane.CLOSED_OPTION,
-//										JOptionPane.INFORMATION_MESSAGE, null, boutons, boutons[0]);
-//						}
-//
-//						// Appelle la fonction Rechercher par nombre (inf ou
-//						// égal)
-//					} else if (vue.getRadioBoutonNbPneusInf().isSelected()) {
-//						listeEmploye = modele.rechercherParNombre(valeurSaisie, true, saison);
-//
-//						// Message information si aucun pneu trouvé
-//						if (listeEmploye.isEmpty() && !modeRefresh) {
-//
-//							if (saison == 1) {
-//
-//								String[] boutons = { "Fermer" };
-//								String information = "Aucun pneu d'hiver trouvé" + " avec un nombre de pneus <= "
-//										+ valeurSaisie + " !";
-//
-//								JOptionPane.showOptionDialog(vue, information, "Message", JOptionPane.CLOSED_OPTION,
-//										JOptionPane.INFORMATION_MESSAGE, null, boutons, boutons[0]);
-//
-//							} else if (saison == 2) {
-//
-//								String[] boutons = { "Fermer" };
-//								String information = "Aucun pneu d'été trouvé " + "avec un nombre de pneus <= "
-//										+ valeurSaisie + " !";
-//
-//								JOptionPane.showOptionDialog(vue, information, "Message", JOptionPane.CLOSED_OPTION,
-//										JOptionPane.INFORMATION_MESSAGE, null, boutons, boutons[0]);
-//
-//							} else if (saison == 3) {
-//
-//								String[] boutons = { "Fermer" };
-//								String information = "Aucun pneu trouvé avec " + "un nombre de pneus <= " + valeurSaisie
-//										+ " !";
-//
-//								JOptionPane.showOptionDialog(vue, information, "Message", JOptionPane.CLOSED_OPTION,
-//										JOptionPane.INFORMATION_MESSAGE, null, boutons, boutons[0]);
-//							}
-//						}
-//
-//						// Appelle la fonction Rechercher par nombre (sup)
-//					} else if (vue.getRadioBoutonNbPneusSup().isSelected()) {
-//						listeEmploye = modele.rechercherParNombre(valeurSaisie, false, saison);
-//
-//						// Message information si aucun pneu trouvé
-//						if (listeEmploye.isEmpty() && !modeRefresh) {
-//
-//							if (saison == 1) {
-//
-//								String[] boutons = { "Fermer" };
-//								String information = "Aucun pneu d'hiver trouvé" + " avec un nombre de pneus > "
-//										+ valeurSaisie + " !";
-//
-//								JOptionPane.showOptionDialog(vue, information, "Message", JOptionPane.CLOSED_OPTION,
-//										JOptionPane.INFORMATION_MESSAGE, null, boutons, boutons[0]);
-//
-//							} else if (saison == 2) {
-//
-//								String[] boutons = { "Fermer" };
-//								String information = "Aucun pneu d'été trouvé " + "avec un nombre de pneus > "
-//										+ valeurSaisie + " !";
-//
-//								JOptionPane.showOptionDialog(vue, information, "Message", JOptionPane.CLOSED_OPTION,
-//										JOptionPane.INFORMATION_MESSAGE, null, boutons, boutons[0]);
-//
-//							} else if (saison == 3) {
-//
-//								String[] boutons = { "Fermer" };
-//								String information = "Aucun pneu trouvé avec " + "une un nombre de pneus > "
-//										+ valeurSaisie + " !";
-//
-//								JOptionPane.showOptionDialog(vue, information, "Message", JOptionPane.CLOSED_OPTION,
-//										JOptionPane.INFORMATION_MESSAGE, null, boutons, boutons[0]);
-//							}
-//						}
-//					}
-//				}
-//			}
-//
-//			// Appelle la fonction afficherResultats
-//			// de la fenêtre principale
-//			vue.afficherResultats(listeEmploye);
-//			modeRefresh = false;
-//
-//		} else if (source == vue.getBtnAfficher()) {
-//
-//			listeEmploye = new ArrayList<Employe>();
-//			vue.afficherResultats(listeEmploye);
-//
-//		} else if (source == vue.getBtnModifier()) {
-//
-//		} else if (source == vue.getBtnSupprimer()) {
-//
-//		} else if (source == vue.getBtnFermer()) {
-//			System.exit(0);
-//
-//		}
+		// Obtenir la source de l'événement.
+		Object source = e.getSource();
+		if (vue.getRdbtntousEmployes().isSelected()) {
+			vue.getTxtRechercher().setText(null);
+			vue.getTxtRechercher().setEditable(false);
+		} else {
+			vue.getTxtRechercher().setEditable(true);
+		}
+		if (source == vue.getBtnAjouter()) {
+
+			AjouterEmploye JDialogAjoutEmploye = new AjouterEmploye(vue, true, modele);
+			JDialogAjoutEmploye.setVisible(true);
+
+		} else if (source == vue.getBtnRechercher()) {
+
+			listeEmploye = new ArrayList<Employe>();
+			vue.afficherResultats(listeEmploye);
+
+			// Appelle la fonction rechercher tous les pneus
+			if (vue.getRdbtntousEmployes().isSelected()) {
+				listeEmploye = modele.rechercherToutesLesEmployes();
+
+				// Message information si aucun pneu trouvé
+				if (listeEmploye.isEmpty() && !modeRefresh) {
+
+					String[] boutons = { "Fermer" };
+					String information = "Aucun element dans la liste";
+
+					JOptionPane.showOptionDialog(vue, information, "Message", JOptionPane.CLOSED_OPTION,
+							JOptionPane.INFORMATION_MESSAGE, null, boutons, boutons[0]);
+
+				}
+
+			} else {
+
+				// Récupère la valeur saisie pour la recherche
+				String valeurSaisie = "";
+
+				valeurSaisie = vue.getTxtRechercher().getText();
+
+				// Appeler la fonction Rechercher par matricule
+				if (vue.getRdbtnMatricule().isSelected()) {
+
+					listeEmploye = modele.rechercherParMatricule(valeurSaisie);
+
+					// Message information si aucun employe trouvé
+					if (listeEmploye.isEmpty() && !modeRefresh) {
+
+						String[] boutons = { "Fermer" };
+						String information = "Aucun Employe n'est trouve avec la matricule " + valeurSaisie + " !";
+
+						JOptionPane.showOptionDialog(vue, information, "Message", JOptionPane.CLOSED_OPTION,
+								JOptionPane.INFORMATION_MESSAGE, null, boutons, boutons[0]);
+					}
+
+					// Appelle la fonction Rechercher par prenom
+				} else if (vue.getRdbtnPrenom().isSelected()) {
+					listeEmploye = modele.rechercherParPrenomEmploye(valeurSaisie);
+					// Message information si aucun pneu trouvé
+					if (listeEmploye.isEmpty() && !modeRefresh) {
+
+						String[] boutons = { "Fermer" };
+						String information = "Aucun Employe n'est trouve avec la matricule  " + valeurSaisie + " !";
+
+						JOptionPane.showOptionDialog(vue, information, "Message", JOptionPane.CLOSED_OPTION,
+								JOptionPane.INFORMATION_MESSAGE, null, boutons, boutons[0]);
+
+					}
+
+					// Appelle la fonction Rechercher par nom
+				} else if (vue.getRdbtnNom().isSelected()) {
+					listeEmploye = modele.rechercherParNomEmploye(valeurSaisie);
+
+					if (listeEmploye.isEmpty() && !modeRefresh) {
+
+						String[] boutons = { "Fermer" };
+						String information = "Aucun employe trouve" + " avec un nombre de pneus > " + valeurSaisie
+								+ " !";
+
+						JOptionPane.showOptionDialog(vue, information, "Message", JOptionPane.CLOSED_OPTION,
+								JOptionPane.INFORMATION_MESSAGE, null, boutons, boutons[0]);
+
+					}
+				}
+
+			}
+
+			// Appelle la fonction afficherResultats
+			// de la fenêtre principale
+			vue.afficherResultats(listeEmploye);
+			modeRefresh = false;
+
+		} else if (source == vue.getBtnAfficher()) {
+			listeEmploye = new ArrayList<Employe>();
+			vue.afficherResultats(listeEmploye);
+
+		} else if (source == vue.getBtnModifier()) {
+
+		} else if (source == vue.getBtnSupprimer()) {
+
+		} else if (source == vue.getBtnFermer()) {
+			System.exit(0);
+
+		}
 
 	}
 

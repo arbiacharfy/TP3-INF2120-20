@@ -333,8 +333,8 @@ public class InterfacePrincipale extends JFrame {
 					Object[] ligne = { p.getMatricule(), 
 										p.getNom()+" "+p.getPrenom(),
 										p.getNumeroTelephone(),
-										p.getBureau().getNumeroEtage(),
-										p.getBureau().getNumeroBureau() };
+										p.getBureau(),
+										p.getBureau()};
 					
 					modeleTableEmploye.addRow(ligne);
 				}
