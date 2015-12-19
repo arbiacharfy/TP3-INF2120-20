@@ -334,8 +334,7 @@ public class InterfacePrincipale extends JFrame {
 										p.getNom()+" "+p.getPrenom(),
 										p.getNumeroTelephone(),
 										p.getBureau(),
-										p.getBureau()};
-					
+										p.getBureau()};					
 					modeleTableEmploye.addRow(ligne);
 				}
 				
