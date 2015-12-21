@@ -21,13 +21,23 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.swing.JLabel;
-
+import javax.swing.JOptionPane;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 
 import javax.swing.JTextField;
 import ca.uqam.inf2120.tp3.controller.ControllerInterfacePrincipale;
 import ca.uqam.inf2120.tp3.modele.Employe;
 
+/**
+ * UQAM - Automne 2015 - INF2120 - Groupe 10 - TP3
+ * 
+ * Classe FenetrePrincipale : représente la fenêtre de Recherche
+ * 
+ * @authors ARBIA CHARFI (CHAA14597805)
+ * 
+ * @version 21/12/2015
+ */
 
 @SuppressWarnings("serial")
 public class InterfacePrincipale extends JFrame {
@@ -44,6 +54,7 @@ public class InterfacePrincipale extends JFrame {
 	private JRadioButton rdbtntousEmployes;
 	private JRadioButton rdbtnPrenom;
 	private JRadioButton rdbtnNom;
+	private ButtonGroup buttonGroup;
 
 	private DefaultTableModel modeleTableEmploye;
 	private ControllerInterfacePrincipale RechercheControleur;
@@ -68,7 +79,7 @@ public class InterfacePrincipale extends JFrame {
 		contentPane.add(panelTop, BorderLayout.NORTH);
 		panelTop.setLayout(new GridLayout(0, 3, 0, 0));
 
-		rdbtnMatricule = new JRadioButton("Matricule");
+		rdbtnMatricule = new JRadioButton("Matricule", true);
 		panelTop.add(rdbtnMatricule);
 
 		rdbtntousEmployes = new JRadioButton("Tous les employes");
@@ -76,12 +87,16 @@ public class InterfacePrincipale extends JFrame {
 
 		JLabel label = new JLabel("");
 		panelTop.add(label);
-
+		buttonGroup = new ButtonGroup();
 		rdbtnPrenom = new JRadioButton("Prenom");
 		panelTop.add(rdbtnPrenom);
 
 		rdbtnNom = new JRadioButton("Nom");
 		panelTop.add(rdbtnNom);
+		buttonGroup.add(rdbtnNom);
+		buttonGroup.add(rdbtnPrenom);
+		buttonGroup.add(rdbtntousEmployes);
+		buttonGroup.add(rdbtnMatricule);
 
 		JLabel label_1 = new JLabel("");
 		panelTop.add(label_1);
@@ -133,6 +148,10 @@ public class InterfacePrincipale extends JFrame {
 		btnAfficher.addActionListener(RechercheControleur);
 		btnFermer.addActionListener(RechercheControleur);
 		btnRechercher.addActionListener(RechercheControleur);
+		rdbtnMatricule.addActionListener(RechercheControleur);
+		rdbtntousEmployes.addActionListener(RechercheControleur);
+		rdbtnPrenom.addActionListener(RechercheControleur);
+		rdbtnNom.addActionListener(RechercheControleur);
 
 		// jTableEmploye.addActionListener(RechercheControleur);
 
@@ -154,6 +173,7 @@ public class InterfacePrincipale extends JFrame {
 		jTableEmploye.getColumnModel().getColumn(0).setPreferredWidth(275);
 		scrollPane = new JScrollPane(jTableEmploye);
 		scrollPane.setVisible(false);
+		JPanelTable.setLayout(new GridLayout(0, 1, 0, 0));
 
 		JPanelTable.add(scrollPane);
 		// Définir le type de fermeture
@@ -248,8 +268,6 @@ public class InterfacePrincipale extends JFrame {
 	public void setRechercheControleur(ControllerInterfacePrincipale rechercheControleur) {
 		RechercheControleur = rechercheControleur;
 	}
-	
-	
 
 	public JRadioButton getRdbtnMatricule() {
 		return rdbtnMatricule;
@@ -291,8 +309,6 @@ public class InterfacePrincipale extends JFrame {
 		ActionEvent event = new ActionEvent(btnRechercher, 0, null);
 		this.RechercheControleur.actionPerformed(event);
 	}
-	
-
 
 	/**
 	 * Launch the application.
@@ -301,51 +317,52 @@ public class InterfacePrincipale extends JFrame {
 
 		InterfacePrincipale frame = new InterfacePrincipale();
 		frame.setVisible(true);
+		frame.getRootPane().setDefaultButton(frame.btnRechercher);
 
 	}
-	
-//	jTableEmploye = new JTable(modeleTableEmploye);
+
+	// jTableEmploye = new JTable(modeleTableEmploye);
 	// Afficher la liste des résultats
-		public void afficherResultats(List<Employe> liste) {
-			
-			if (liste.isEmpty()) {
-				
-				// Suppression de toutes les lignes du tableau
-				while (modeleTableEmploye.getRowCount() != 0) {
-					modeleTableEmploye.removeRow(0);
-				}
-				
-				// Rend non visible le tableau et les boutons
-				// Modifier, Supprimer, Afficher
-				scrollPane.setVisible(false);
-				btnModifier.setEnabled(false);
-				btnSupprimer.setEnabled(false);
-				btnAfficher.setEnabled(false);
-				
-			} else {
-				
-				// Ajout de chaque ligne de la liste 
-				// de résultats dans le tableau
-				Locale.setDefault(new Locale("en", "US"));
-				DecimalFormat df = new DecimalFormat("##.00");
-				
-				for (Employe p : liste) {
-					Object[] ligne = { p.getMatricule(), 
-										p.getNom()+" "+p.getPrenom(),
-										p.getNumeroTelephone(),
-										p.getBureau(),
-										p.getBureau()};					
-					modeleTableEmploye.addRow(ligne);
-				}
-				
-				// Rend visible le tableau et les boutons
-				// Modifier, Supprimer, Afficher
-				jTableEmploye.setRowSelectionInterval(0, 0);
-				scrollPane.setVisible(true);
-				btnModifier.setEnabled(true);
-				btnSupprimer.setEnabled(true);
-				btnAfficher.setEnabled(true);	
+	public void afficherResultats(List<Employe> liste) {
+
+		if (liste == null) {
+			// Rend non visible le tableau et les boutons
+			// Modifier, Supprimer, Afficher
+			scrollPane.setVisible(false);
+			btnModifier.setEnabled(false);
+			btnSupprimer.setEnabled(false);
+			btnAfficher.setEnabled(false);
+
+		} else if (liste.isEmpty()) {
+			// Rend non visible le tableau et les boutons
+			// Modifier, Supprimer, Afficher
+			scrollPane.setVisible(false);
+			btnModifier.setEnabled(false);
+			btnSupprimer.setEnabled(false);
+			btnAfficher.setEnabled(false);
+		} else {
+			// Suppression de toutes les lignes du tableau
+			while (modeleTableEmploye.getRowCount() != 0) {
+				modeleTableEmploye.removeRow(0);
 			}
+
+			for (Employe p : liste) {
+				Object[] ligne = { p.getMatricule(), p.getNom() + " " + p.getPrenom(), p.getNumeroTelephone(),
+						p.getBureau().getNumeroBureau(), p.getBureau().getNumeroEtage() };
+				modeleTableEmploye.addRow(ligne);
+				
+			}
+
+			// Rend visible le tableau et les boutons
+			// Modifier, Supprimer, Afficher
+			jTableEmploye.setRowSelectionInterval(0, 0);
+
+			scrollPane.setVisible(true);
+			btnModifier.setEnabled(true);
+			btnSupprimer.setEnabled(true);
+			btnAfficher.setEnabled(true);
 		}
+
+	}
 
 }

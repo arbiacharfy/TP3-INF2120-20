@@ -40,7 +40,12 @@ public class AnnuaireTelephonique {
 	 */
 	public void ajouterEmploye(Employe unEmploye) {
 
-		listeDesEmployes.ajouterFin(unEmploye);
+		
+		if (!employeExist(unEmploye)) {
+
+			listeDesEmployes.ajouterFin(unEmploye);
+
+		}
 
 	}
 
@@ -81,46 +86,18 @@ public class AnnuaireTelephonique {
 	 *         critères de recherche.
 	 */
 	public List<Employe> rechercherParMatricule(String matricule) {
-		
+
+		List<Employe> listeResultats = new ArrayList<Employe>();
 		Iterator<Employe> it = listeDesEmployes.iterateur();
-		List<Employe> malisteDeRetour = new ArrayList<Employe>();
-
 		while (it.hasNext()) {
-
-			Employe employeCourant = it.next();
-
-			if (employeCourant.getMatricule() == matricule) {
-				malisteDeRetour.add(employeCourant);
+			Employe EmployeCourant = it.next();
+			if (EmployeCourant.getMatricule().equals(matricule)) {
+				listeResultats.add(EmployeCourant);
 			}
-
 		}
 
-		return malisteDeRetour;
-	}
+		return listeResultats;
 
-	// retourne null si l'element n'existe pas
-	public Employe rechercheParMatricule(String matricule) {
-		boolean trouve = false;
-		Employe e1 = null;
-		int i = 0;
-		List<Employe> maliste = rechercherToutesLesEmployes();
-
-		if (!(maliste == null)) {
-
-			while (trouve) {
-				if (maliste.get(i).getMatricule().equals(matricule)
-						|| maliste.get(i).getMatricule().contains(matricule)) {
-
-					trouve = true;
-					e1 = maliste.get(i);
-
-				}
-
-			}
-
-		}
-
-		return e1;
 	}
 
 	/**
@@ -220,6 +197,15 @@ public class AnnuaireTelephonique {
 
 	public void setListeDesEmployes(GroupeTda<Employe> listeDesEmployes) {
 		this.listeDesEmployes = listeDesEmployes;
+	}
+
+	public boolean employeExist(Employe unEmploye) {		
+		boolean existe = true;
+		List<Employe> list = rechercherParMatricule(unEmploye.getMatricule());
+		if (list.size() == 0) {
+			existe = false;
+		}
+		return existe;
 	}
 
 }
