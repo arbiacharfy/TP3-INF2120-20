@@ -253,7 +253,7 @@ public class GroupeImpl<T> implements GroupeTda<T> {
 	 */
 	@Override
 	public boolean supprimer(T element) {
-
+		
 		boolean elementSupprime = false;
 		if (estElement(element)) {
 			membres.remove(element);

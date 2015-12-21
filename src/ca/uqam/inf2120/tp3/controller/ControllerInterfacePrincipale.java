@@ -6,13 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 
+import ca.uqam.inf2120.tp3.interfacegraphiques.AfficherEmployer;
 import ca.uqam.inf2120.tp3.interfacegraphiques.AjouterEmploye;
+
 import ca.uqam.inf2120.tp3.interfacegraphiques.InterfacePrincipale;
+import ca.uqam.inf2120.tp3.interfacegraphiques.ModifierEmploye;
 import ca.uqam.inf2120.tp3.modele.AnnuaireTelephonique;
-import ca.uqam.inf2120.tp3.modele.EmplacementBureau;
 import ca.uqam.inf2120.tp3.modele.Employe;
 
 public class ControllerInterfacePrincipale implements ActionListener {
@@ -73,7 +73,7 @@ public class ControllerInterfacePrincipale implements ActionListener {
 
 					listeEmploye = modele.rechercherParPrenomEmploye(valeurSaisie);
 					// Message information si aucun pneu trouvé
-					if (listeEmploye == null ) {
+					if (listeEmploye == null) {
 
 						JOptionPane.showMessageDialog(null, MESSAGE_MATRICULE + valeurSaisie + " !",
 								"WARNING MATRICULE", JOptionPane.WARNING_MESSAGE);
@@ -113,12 +113,24 @@ public class ControllerInterfacePrincipale implements ActionListener {
 			modeRefresh = false;
 
 		} else if (source == vue.getBtnAfficher()) {
-			listeEmploye = new ArrayList<Employe>();
-			vue.afficherResultats(listeEmploye);
+			// Récupère l'employe sélectionné dans la liste
+			Employe employe = listeEmploye.get(vue.getjTableEmploye().getSelectedRow());
+			AfficherEmployer employeAfficher = new AfficherEmployer(vue, true, employe);
+			employeAfficher.setVisible(true);
 
 		} else if (source == vue.getBtnModifier()) {
 
+			// Récupère l'employe sélectionné dans la liste
+			Employe employe = listeEmploye.get(vue.getjTableEmploye().getSelectedRow());
+			// Appeler la fenêtre dialogue Modifier
+			ModifierEmploye fenetreModifier = new ModifierEmploye(vue, true, employe, modele);
+			fenetreModifier.setVisible(true);
+
 		} else if (source == vue.getBtnSupprimer()) {
+			// Récupère l'employe sélectionné dans la liste
+			Employe employe = listeEmploye.get(vue.getjTableEmploye().getSelectedRow());
+			modele.supprimerEmploye(employe);
+			
 
 		} else if (source == vue.getBtnFermer()) {
 			System.exit(0);

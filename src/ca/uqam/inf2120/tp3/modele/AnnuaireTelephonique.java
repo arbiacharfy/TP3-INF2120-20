@@ -62,7 +62,7 @@ public class AnnuaireTelephonique {
 
 			Employe employeCourant = it.next();
 
-			if (employeCourant.getMatricule() == unEmploye.getMatricule()) {
+			if (employeCourant.getMatricule().equals(unEmploye.getMatricule()) ) {
 
 				employeCourant.setNom(unEmploye.getNom());
 				employeCourant.setAdresseCourriel(unEmploye.getAdresseCourriel());
@@ -73,6 +73,7 @@ public class AnnuaireTelephonique {
 			}
 		}
 	}
+	
 
 	/**
 	 * Recherche les employés par le matricule de l'employé. La méthode doit

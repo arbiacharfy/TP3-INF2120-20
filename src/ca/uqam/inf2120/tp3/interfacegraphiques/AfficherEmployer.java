@@ -1,10 +1,9 @@
 package ca.uqam.inf2120.tp3.interfacegraphiques;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
+
 import java.awt.FlowLayout;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -13,16 +12,17 @@ import javax.swing.JTextField;
 
 import javax.swing.border.TitledBorder;
 
-import ca.uqam.inf2120.tp3.controller.ControllerAjouterEmploye;
-import ca.uqam.inf2120.tp3.controller.ControllerInterfacePrincipale;
-import ca.uqam.inf2120.tp3.modele.AnnuaireTelephonique;
+import ca.uqam.inf2120.tp3.controller.ControllerAfficherEmploye;
+import ca.uqam.inf2120.tp3.modele.Employe;
+
 
 import java.awt.GridLayout;
 import javax.swing.JLabel;
 
 @SuppressWarnings("serial")
-public class AjouterEmploye extends JDialog {
-	// *********** Déclarations des attributs **********//
+public class AfficherEmployer extends JDialog {
+
+	/*********** Déclarations des attributs **********/
 
 	JPanel panneauGlobal;
 	private final String MESSAGE_SELECT_NUM_RTAGE = "Select le no d'etage";
@@ -36,29 +36,27 @@ public class AjouterEmploye extends JDialog {
 	private JTextField textCourriel;
 	private JComboBox<String> comboBoxNumEtage;
 	private JTextField textNumBureau;
-	private JButton btnAnnuler;
-	private JButton btnAjouter;
+	private JButton btnFermer;
+	
 	// declaration de l'ecouteur
-	private ControllerAjouterEmploye AjouterEmployerControlleur;
+	private ControllerAfficherEmploye afficherEmployerControlleur;
+	// classe Employe
+	private Employe employe;
 
-	public AjouterEmploye(InterfacePrincipale fenetrePrincipale, boolean modal, AnnuaireTelephonique modele) {
+	// Constructeur
+	
+	public AfficherEmployer(InterfacePrincipale fenetrePrincipale, boolean modal, Employe employe) {
 		super(fenetrePrincipale, modal);
+		this.employe = employe;		
 		init();
-		// Création du controleur (Controller du MVC)
-		AjouterEmployerControlleur = new ControllerAjouterEmploye(this, modele);
-		// Ajouter le écouteur aux composants
-		btnAjouter.addActionListener(AjouterEmployerControlleur);
-		btnAnnuler.addActionListener(AjouterEmployerControlleur);
-		textMatricule.addActionListener(AjouterEmployerControlleur);
-		textPrenom.addActionListener(AjouterEmployerControlleur);
-		textNom.addActionListener(AjouterEmployerControlleur);
-		textTelephone.addActionListener(AjouterEmployerControlleur);
-		textCourriel.addActionListener(AjouterEmployerControlleur);
-		comboBoxNumEtage.addActionListener(AjouterEmployerControlleur);
-		textNumBureau.addActionListener(AjouterEmployerControlleur);
+		// Création du controleur 
+		afficherEmployerControlleur = new ControllerAfficherEmploye(this);
+		// Ajouter le écouteur aux composants		
+		btnFermer.addActionListener(afficherEmployerControlleur);
+		
 	}
 
-		/**
+	/**
 	 * Launch the application.
 	 */
 	private void init() {
@@ -72,41 +70,41 @@ public class AjouterEmploye extends JDialog {
 		// panneau top
 		JPanel panelHaut = new JPanel();
 		panelHaut.setBorder(
-				new TitledBorder(null, "Ajout de l'employe", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+				new TitledBorder(null, "Affichage de l'employe", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panneauGlobal.add(panelHaut, BorderLayout.CENTER);
 		panelHaut.setLayout(new GridLayout(7, 2, 0, 0));
 		// Matricule
 		JLabel lblMatricule = new JLabel("Matricule :");
 		panelHaut.add(lblMatricule);
-
-		textMatricule = new JTextField();
+		
+		textMatricule = new JTextField(employe.getMatricule());
 		panelHaut.add(textMatricule);
 		textMatricule.setColumns(10);
 		// Prenom
 		JLabel lblPrenom = new JLabel("Prenom :");
 		panelHaut.add(lblPrenom);
-		textPrenom = new JTextField();
+		textPrenom = new JTextField(employe.getPrenom());
 		panelHaut.add(textPrenom);
 		textPrenom.setColumns(10);
 		// Nom
 		JLabel lblNom = new JLabel("Nom :");
 		panelHaut.add(lblNom);
 
-		textNom = new JTextField();
+		textNom = new JTextField(employe.getNom());
 		panelHaut.add(textNom);
 		textNom.setColumns(10);
 		// Telephone
 		JLabel lblTelephone = new JLabel("Telephone :");
 		panelHaut.add(lblTelephone);
 
-		textTelephone = new JTextField();
+		textTelephone = new JTextField(employe.getNumeroTelephone());
 		panelHaut.add(textTelephone);
 		textTelephone.setColumns(10);
 		// Courriel
 		JLabel lblCourriel = new JLabel("Courriel :");
 		panelHaut.add(lblCourriel);
 
-		textCourriel = new JTextField();
+		textCourriel = new JTextField(employe.getAdresseCourriel());
 		panelHaut.add(textCourriel);
 		textCourriel.setColumns(10);
 		// Numero Etage
@@ -119,11 +117,12 @@ public class AjouterEmploye extends JDialog {
 		for (String i : NUMERO_ETAGE) {
 			comboBoxNumEtage.addItem(i);
 		}
+		comboBoxNumEtage.setSelectedItem(String.valueOf(employe.getBureau().getNumeroEtage()));
 		panelHaut.add(comboBoxNumEtage);
 		// Numero Bureau
 		JLabel lblNumBureau = new JLabel("Numero de Bureau :");
 		panelHaut.add(lblNumBureau);
-		textNumBureau = new JTextField();
+		textNumBureau = new JTextField(String.valueOf(employe.getBureau().getNumeroBureau()));
 		panelHaut.add(textNumBureau);
 		textNumBureau.setColumns(10);
 		// panneau bottom
@@ -131,11 +130,11 @@ public class AjouterEmploye extends JDialog {
 		FlowLayout flowLayout = (FlowLayout) panelBas.getLayout();
 		flowLayout.setAlignment(FlowLayout.RIGHT);
 		panneauGlobal.add(panelBas, BorderLayout.SOUTH);
-		btnAjouter = new JButton("Ajouter");
-		panelBas.add(btnAjouter);
-		btnAnnuler = new JButton("Annuler");
-		panelBas.add(btnAnnuler);
+		btnFermer = new JButton("Fermer");
+		panelBas.add(btnFermer);
+	
 	}
+	/*************Getters et Setters************************/
 
 	public JTextField getTextMatricule() {
 		return textMatricule;
@@ -193,34 +192,38 @@ public class AjouterEmploye extends JDialog {
 		this.textNumBureau = textNumBureau;
 	}
 
-	public JButton getBtnAnnuler() {
-		return btnAnnuler;
+	public JButton getBtnFermer() {
+		return btnFermer;
 	}
 
-	public void setBtnAnnuler(JButton btnAnnuler) {
-		this.btnAnnuler = btnAnnuler;
+	public void setBtnFermer(JButton btnFermer) {
+		this.btnFermer = btnFermer;
 	}
 
-	public JButton getBtnAjouter() {
-		return btnAjouter;
+	public ControllerAfficherEmploye getAfficherEmployerControlleur() {
+		return afficherEmployerControlleur;
 	}
 
-	public void setBtnAjouter(JButton btnAjouter) {
-		this.btnAjouter = btnAjouter;
+	public void setAfficherEmployerControlleur(ControllerAfficherEmploye afficherEmployerControlleur) {
+		this.afficherEmployerControlleur = afficherEmployerControlleur;
 	}
 
-	public ControllerAjouterEmploye getAjouterEmployerControlleur() {
-		return AjouterEmployerControlleur;
+	public Employe getEmploye() {
+		return employe;
 	}
 
-	public void setAjouterEmployerControlleur(ControllerAjouterEmploye ajouterEmployerControlleur) {
-		AjouterEmployerControlleur = ajouterEmployerControlleur;
+	public void setEmploye(Employe employe) {
+		this.employe = employe;
 	}
 
 	public String getMESSAGE_SELECT_NUM_RTAGE() {
 		return MESSAGE_SELECT_NUM_RTAGE;
 	}
-	
+
+	public String[] getNUMERO_ETAGE() {
+		return NUMERO_ETAGE;
+	}
+
 	
 
 }
