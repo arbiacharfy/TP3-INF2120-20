@@ -130,6 +130,7 @@ public class ControllerInterfacePrincipale implements ActionListener {
 			// Récupère l'employe sélectionné dans la liste
 			Employe employe = listeEmploye.get(vue.getjTableEmploye().getSelectedRow());
 			modele.supprimerEmploye(employe);
+			vue.refresh();
 			
 
 		} else if (source == vue.getBtnFermer()) {

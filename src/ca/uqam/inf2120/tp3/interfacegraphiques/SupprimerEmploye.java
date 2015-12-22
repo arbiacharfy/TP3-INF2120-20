@@ -11,47 +11,38 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import javax.swing.border.TitledBorder;
-
-import ca.uqam.inf2120.tp3.controller.ControllerAfficherEmploye;
+import ca.uqam.inf2120.tp3.controller.ControllerSupprimerEmploye;
 import ca.uqam.inf2120.tp3.modele.AnnuaireTelephonique;
 import ca.uqam.inf2120.tp3.modele.Employe;
-import ca.uqam.inf2120.tp3.modele.GestionnaireInventairePneus;
-import ca.uqam.inf2120.tp3.modele.Pneu;
-
 import java.awt.GridLayout;
 import javax.swing.JLabel;
 
 @SuppressWarnings("serial")
 public class SupprimerEmploye extends JDialog {
 
-	private Employe employe;
-
-	// Panneau de haut et ses composants
+	
 	private JPanel panneauHaut;
 	private GridLayout gestionnairePanneauHaut = new GridLayout(2, 2);
-	private JLabel description;
-	private JTextField saisieDescription;
-	private JLabel nbPneus;
-	private JTextField saisieNbPneus;
-
-	// Panneau de bas et ses composants
+	private JLabel nomEtPrenom;
+	private JTextField txtNomPrenom;	
 	private JPanel panneauBas;
 	private FlowLayout gestionnairePanneauBas = new FlowLayout(FlowLayout.RIGHT);
 	private JButton boutonSupprimer;
 	private JButton boutonAnnuler;
+	
+	// Controlleur 
+	private ControllerSupprimerEmploye controlleurSupprimerEmploye;
+	private Employe employe;
 
-	// Constructeur sans argument
+	// Constructeur
 	public SupprimerEmploye(InterfacePrincipale vue, boolean modal, Employe employe, AnnuaireTelephonique modele) {
 		super(vue, modal);
 		this.employe = employe;
 		init();
-
-		// Création du contrôleur (Controller du MVC)
-		ecouteur = new EcouteurSupprimer(this, unPneu, unGestionnaire);
-
-		// Ajouter le contrôleur (écouteur) aux composants
-		boutonSupprimer.addActionListener(ecouteur);
-		boutonAnnuler.addActionListener(ecouteur);
+		// Création du contrôleur 
+		controlleurSupprimerEmploye = new ControllerSupprimerEmploye(this, employe, modele);
+		boutonSupprimer.addActionListener(controlleurSupprimerEmploye);
+		boutonAnnuler.addActionListener(controlleurSupprimerEmploye);
 	}
 
 	// Crée tous les conteneurs et composants de la fenêtre
@@ -62,32 +53,23 @@ public class SupprimerEmploye extends JDialog {
 		panneauHaut.setBorder(
 				new TitledBorder(null, "Informations du pneu", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 
-		// Création saisie Description
-		description = new JLabel("Description :");
-		saisieDescription = new JTextField(pneu.construireDecription());
-		saisieDescription.setEditable(false);
+		// Création saisie Nom et Prenom 
+		nomEtPrenom = new JLabel("Nom et Prenom :");
+		txtNomPrenom = new JTextField(employe.getNom()+" - "+employe.getPrenom()+ "(Matricule : "+employe.getMatricule()+")");
+		txtNomPrenom.setEditable(false);
 
-		panneauHaut.add(description);
-		panneauHaut.add(saisieDescription);
+		panneauHaut.add(nomEtPrenom);
+		panneauHaut.add(txtNomPrenom);
 
-		// Création saisie Nombre Pneus
-		nbPneus = new JLabel("Nombre de pneus :");
-		saisieNbPneus = new JTextField(String.valueOf(pneu.obtenirNbCopies()));
-
-		panneauHaut.add(nbPneus);
-		panneauHaut.add(saisieNbPneus);
-
-		// Création du panneau de bas avec ses composants.
+			// Création du panneau de bas avec ses composants.
 		panneauBas = new JPanel(gestionnairePanneauBas);
-
 		boutonSupprimer = new JButton("Supprimer");
 		boutonAnnuler = new JButton("Annuler");
-
 		panneauBas.add(boutonSupprimer);
 		panneauBas.add(boutonAnnuler);
 
 		// Personnalisation du cadre central
-		setTitle("Nordic Pneus (SGI) - Suppression");
+		setTitle("Message Suppression");
 		setSize(600, 150);
 		setResizable(false);
 		setLocationRelativeTo(this.getParent());
@@ -98,5 +80,55 @@ public class SupprimerEmploye extends JDialog {
 		// Définir le type de fermeture
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 	}
+
+	public JLabel getNomEtPrenom() {
+		return nomEtPrenom;
+	}
+
+	public void setNomEtPrenom(JLabel nomEtPrenom) {
+		this.nomEtPrenom = nomEtPrenom;
+	}
+
+	public JTextField getTxtNomPrenom() {
+		return txtNomPrenom;
+	}
+
+	public void setTxtNomPrenom(JTextField txtNomPrenom) {
+		this.txtNomPrenom = txtNomPrenom;
+	}
+
+	public JButton getBoutonSupprimer() {
+		return boutonSupprimer;
+	}
+
+	public void setBoutonSupprimer(JButton boutonSupprimer) {
+		this.boutonSupprimer = boutonSupprimer;
+	}
+
+	public JButton getBoutonAnnuler() {
+		return boutonAnnuler;
+	}
+
+	public void setBoutonAnnuler(JButton boutonAnnuler) {
+		this.boutonAnnuler = boutonAnnuler;
+	}
+
+	public ControllerSupprimerEmploye getControlleurSupprimerEmploye() {
+		return controlleurSupprimerEmploye;
+	}
+
+	public void setControlleurSupprimerEmploye(ControllerSupprimerEmploye controlleurSupprimerEmploye) {
+		this.controlleurSupprimerEmploye = controlleurSupprimerEmploye;
+	}
+
+	public Employe getEmploye() {
+		return employe;
+	}
+
+	public void setEmploye(Employe employe) {
+		this.employe = employe;
+	}
+	
+	
 
 }
